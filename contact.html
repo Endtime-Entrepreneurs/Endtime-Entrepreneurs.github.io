@@ -11,19 +11,20 @@
     <a href="https://Endtime-Entrepreneurs.github.io/sitemap.html" style="font-size: larger; font-family: 'Courier New';">Sitemap</a>
 </div>
 <hr>
-<iframe src="https://discordapp.com/widget?id=711051786580000820&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+<!-- <iframe src="https://discordapp.com/widget?id=711051786580000820&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+-->
 
-<p>
-    Email@EE.io
-    Twitter
-    Facebook
-    Discord (we may want to keep this to ourselves but its up to you guys)
-
-    In the future I am going to teach myself how to put in a textfield and have it automatically emailed to us but for no I think
-    that we should just post our social like I did above
-
-</p>
-
+<div class="contact-form">
+    <form id="contact-form" method="post" action="contacthandler.php">
+        <input name="name" type="text" placeholder="Your Name" class="form-control" required>
+        <br>
+        <input name="email" type="text" placeholder="Your Email" class="form-control" required>
+        <br>
+        <textarea name="message" class="form-control" placeholder="Message" rows="4" required></textarea>
+        <br>
+        <input type="submit" class="form-control submit" value="SEND MESSAGE">
+    </form>
+</div>
 
 
 </body>
