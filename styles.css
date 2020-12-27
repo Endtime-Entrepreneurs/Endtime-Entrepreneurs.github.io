@@ -21,6 +21,7 @@ label.logo {
     font-size: 35px;
     line-height: 80px;
     font-weight: bold;
+    margin: 5px;
 }
 
 nav ul {
@@ -101,7 +102,4 @@ a.active, a:hover {
     #check:checked ~ ul {
         left: 0;
     }
-}
-.section {
-
 }
