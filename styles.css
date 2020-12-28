@@ -35,7 +35,7 @@ nav ul li {
     margin: 0 5px;
 }
 
-nav ul li a {
+a.menubtn {
     color: white;
     font-size: 17px;
     paddingL: 7px 13px;
@@ -102,4 +102,28 @@ a.active, a:hover {
     #check:checked ~ ul {
         left: 0;
     }
+}
+
+body.contact {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    background: url(spacecontact.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+form.contact-form {
+    margin-top: 130px;
+    transition: all 4s ease-out;
+}
+
+.form-control {
+    width: 600px;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid gray;
+    color: #fff;
+    font-size: 18px;
+    margin-bottom: 16px;
 }
