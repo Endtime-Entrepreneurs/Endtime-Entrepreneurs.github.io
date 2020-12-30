@@ -104,6 +104,12 @@ a.active, a:hover {
     }
 }
 
+@media (max-width: 450px) {
+    label.logo {
+        font-size: 25px;
+    }
+}
+
 body.contact {
     margin: 0;
     padding: 0;
