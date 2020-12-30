@@ -12,8 +12,8 @@ body {
 
 nav {
     background: #0082e6;
-    height: 80px;
     width: 100%;
+    position: fixed;
 }
 
 label.logo {
@@ -86,6 +86,7 @@ a.active, a:hover {
         left: -100%;
         text-align: center;
         transition: all .5s;
+        z-index: 1;
     }
     nav ul li {
         display: block;
@@ -128,4 +129,8 @@ form.contact-form {
     font-size: 18px;
     margin-bottom: 16px;
     font-family: "Trebuchet MS";
+}
+
+.nav-margin, nav{
+    height: 80px;
 }
