@@ -115,7 +115,7 @@ body.contact {
     margin: 0;
     padding: 0;
     text-align: center;
-    background: url(spacecontact.jpg);
+    /* background: url(spacecontact.jpg); */
     background-size: 100%;
     background-repeat: no-repeat;
 }
