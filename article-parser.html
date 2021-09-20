@@ -77,7 +77,8 @@
     console.log(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
     $("#article_text").html(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
     $("#article_title").html(xmlDoc.getElementsByTagName("Title")[0].innerHTML);
-    $("#article_authors").html(xmlDoc.getElementsByTagName("Author")[0].innerHTML.append("<span>" + xmlDoc.getElementsByTagName("Date")[0].innerHTML + "</span>"));
+    $("#article_authors").html(xmlDoc.getElementsByTagName("Author")[0].innerHTML);
+    $("#article_authors").append("<span>" + xmlDoc.getElementsByTagName("Date")[0].innerHTML + "</span>");
   }
 </script>
 </body>
