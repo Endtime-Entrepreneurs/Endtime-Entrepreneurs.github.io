@@ -103,7 +103,7 @@
     xhttp.send();
   }
   function parseArticleList(text) {
-    const textLines = text.split('\n');
+    const textLines = text.responseText.split('\n');
     for(var i = 0; i < 1; i++){
         fillArticle(1, text[1]);
     }
