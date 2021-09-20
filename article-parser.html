@@ -85,8 +85,8 @@
     const xmlDoc = xml.responseXML;
     //const x = xmlDoc.getElementsByTagName("CD");
     console.log(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
-    $("#article_text").text(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
-    $("#article_title").text(xmlDoc.getElementsByTagName("Title")[0].innerHTML);
+    $("#article_text").html(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
+    $("#article_title").html(xmlDoc.getElementsByTagName("Title")[0].innerHTML);
     //let table="<tr><th>Artist</th><th>Title</th></tr>";
     //for (let i = 0; i <x.length; i++) {
       //table += "<tr><td>" +
