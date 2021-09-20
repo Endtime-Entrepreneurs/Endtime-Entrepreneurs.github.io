@@ -39,44 +39,9 @@
 </ul>
 </nav>
 <div class="nav-margin"></div>
-<div class="container">
+<div class="container" id="article_holder">
     <h1 class="text-center">    Some of our latest updates</h1>
     <p class="text-center">Find out below how the developers are doing <br> Check the contact us page if you are interested in joining our team!</p>
-
-    <div class="row">
-        <div class="col-md-4">
-            <div class="single-blog">
-                <p id="article_authors_1" class="blog-meta">By Everyone <span>December 23, 2020</span></p>
-                <img src="Article1Thumbsmall.png">
-                <h2><a id="article_title_1" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article1">Our Very First Update</a></h2>
-                <p id="article_text_1" class="blog-text">Hello world!  And Merry Christmas! We are a small group of game developers with big ideas.  For the last year we have been researching a new world!</p>
-                <p><a id="article_link_1" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article1" class="read-more-btn">Read More</a></p>
-
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="single-blog">
-                <p id="article_authors_2" class="blog-meta">By Airy & Da Dark Wizard<span>April 8, 2021</span></p>
-                <img src="Article2Thumbsmall.png">
-                <h2><a id="article_title_2" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article2">An Adventure Begins</a></h2>
-                <p id="article_text_2" class="blog-text">The earliest I can remember is the void… There was nothing to ponder but your thoughts--if they exist. Nothing to see, nothing to hear, nothing to do…</p>
-                <p><a id="article_link_2" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article2" class="read-more-btn">Read More</a></p>
-
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="single-blog">
-                <p id="article_authors_3" class="blog-meta">By Everyone <span>September 19, 2021</span></p>
-                <img src="apple.png">
-                <h2><a id="article_title_3" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article3">Thoughts Within the Void</a></h2>
-                <p id="article_text_3" class="blog-text">Airy:  Over what seemed like months, as if we could send our thoughts through a medium, DaDarkWizard and I communicated with each other.</p>
-                <p><a id="article_link_3" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article3" class="read-more-btn">Read More</a></p>
-
-            </div>
-        </div>
-    </div>
-    
-
 </div>
 
 <br>
@@ -100,23 +65,91 @@
     xhttp.open("GET", "articlelist.txt");
     xhttp.send();
   }
-  function fillArticle(index, articleName){
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {
-        const xmlDoc = this.responseXML;
-        var text = xmlDoc.getElementsByTagName("Text")[0];
-        $("#article_text_" + index).html(text.innerHTML.substring(0, Math.min(200, text.innerHTML.indexOf("<br/>", 100))));
-        $("#article_title_" + index).html(xmlDoc.getElementsByTagName("Title")[0].innerHTML);
-        $("#article_authors_" + index).html(xmlDoc.getElementsByTagName("Author")[0].innerHTML);
-        $("#article_authors_" + index).append("<span>" + xmlDoc.getElementsByTagName("Date")[0].innerHTML + "</span>");
+  async function getData(ajaxurl) { 
+        return await $.getJSON({
+            url: ajaxurl,
+            type: 'GET',
+        });
+    };
+  async function fillArticle(index, articleName){
+      if(articleName == undefined) {
+          return;
+      }
+    //const xhttp = new XMLHttpRequest();
+    //xhttp.onload = function() {
+        
+    //}
+    //xhttp.open("GET", "Articles/" + articleName + ".xml", true);
+    //await xhttp.send();
+    xhttp = await getData("Articles/" + articleName + ".json");
+    if(xhttp == undefined){
+        return;
     }
-    xhttp.open("GET", "Articles/" + articleName + ".xml");
-    xhttp.send();
+    console.log(xhttp["Author"]);
+    console.log(xhttp["Date"]);
+    var longText = xhttp["Text"];
+    var text = longText.substring(0, Math.min(200, longText.indexOf("<br/>", 100)));
+    var title = xhttp["Title"];
+    var authors = xhttp["Author"];
+    var date = xhttp["Date"];
+    $("#article_holder").append(createArticle(articleName, authors, date, title, text));
   }
-  function parseArticleList(text) {
+  function createArticle(filename, authors, date, title, text) {
+      var row = $("<div>");
+      row.addClass("single-blog");
+      var div = $("<div>");
+      row.append(div);
+      div.addClass("row");
+      div.addClass("no-gutters");
+      var workingDiv = $("<div>");
+      div.append(workingDiv);
+      workingDiv.addClass("col-2");
+      var currentElement = $("<a>");
+      workingDiv.append(currentElement);
+      currentElement.attr("href", "article-parser.html?article=" + filename);
+      currentElement.append(createImage(authors));
+      workingDiv = $("<div>");
+      div.append(workingDiv);
+      workingDiv.addClass("col");
+      workingDiv.addClass("pl-2");
+      currentElement = $("<h2>");
+      workingDiv.append(currentElement);
+      var insideElement = $("<a>");
+      currentElement.append(insideElement);
+      insideElement.attr("href", "article-parser.html?article=" + filename);
+      insideElement.text(title);
+      currentElement = $("<p>");
+      workingDiv.append(currentElement);
+      currentElement.html("By " + authors + " on " + date);
+      currentElement.addClass("blog-meta");
+      currentElement = $("<p>");
+      workingDiv.append(currentElement);
+      currentElement.html(text);
+      currentElement.addClass("blog-text");
+      currentElement = $("<p>");
+      workingDiv.append(currentElement);
+      insideElement = $("<a>");
+      currentElement.append(insideElement);
+      insideElement.attr("href", "article-parser.html?article=" + filename);
+      insideElement.addClass("read-more-btn");
+      insideElement.text("Read More");
+      return row;
+  }
+  function createImage(authors) {
+      var src = "EETestLogo.png";
+      if(authors.indexOf("DaDarkWizard") > -1) {
+        src = "Wizard.png";
+      }
+      else if (authors.indexOf("Airy") > -1) {
+          src = "Airy.png";
+      }
+      var image = $("<img src=\"" + src + "\">");
+      return image;
+  }
+  async function parseArticleList(text) {
     const textLines = text.responseText.split('\n');
-    for(var i = 0; i < 3; i++){
-        fillArticle(i + 1, textLines[i]);
+    for(var i = -1; i < 3; i++){
+        await fillArticle(i + 1, textLines[i]);
     }
   }
 </script>

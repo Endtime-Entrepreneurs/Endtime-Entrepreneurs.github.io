@@ -52,7 +52,7 @@
 
 <script type="text/javascript">
 
-  function loadDoc() {
+  async function loadDoc() {
     var search = window.location.search;
     var articles = search.split("?");
     var selectedArticle = "";
@@ -65,19 +65,18 @@
       }
     }
 
-    const xhttp = new XMLHttpRequest();
-    xhttp.onload = function() {parseXML(this);}
-    xhttp.open("GET", "Articles/" + selectedArticle + ".xml");
-    xhttp.send();
+    parseJSON(await $.getJSON({
+            url: "Articles/" + selectedArticle + ".json",
+            type: 'GET',
+        }));
   }
   
-  function parseXML(xml) {
-    const xmlDoc = xml.responseXML;
+  function parseJSON(jsonText) {
     
-    $("#article_text").html(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
-    $("#article_title").html(xmlDoc.getElementsByTagName("Title")[0].innerHTML);
-    $("#article_authors").html(xmlDoc.getElementsByTagName("Author")[0].innerHTML);
-    $("#article_authors").append("<span>" + xmlDoc.getElementsByTagName("Date")[0].innerHTML + "</span>");
+    $("#article_text").html(jsonText["Text"]);
+    $("#article_title").html(jsonText["Title"]);
+    $("#article_authors").html(jsonText["Author"]);
+    $("#article_authors").append("<span>" + jsonText["Date"] + "</span>");
   }
 </script>
 </body>
