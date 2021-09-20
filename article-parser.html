@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<title>Article #0002</title>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/19bf467a51.js" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://Endtime-Entrepreneurs.github.io/EETestLogo.png">
+</head>
+<body onload="loadDoc()">
+<img src="WebBanner.png" alt="Web banner." style="width:100%;"/>
+<nav>
+    <input type="checkbox" id="check">
+    <label for="check" class="checkbtn"><i class="fas fa-bars"></i></label>
+    <label class="logo">Endtime Entrepreneurs</label>
+    <ul>
+        <li><a href="https://Endtime-Entrepreneurs.github.io" class="menubtn">Home</a></li>
+        <li><a href="https://Endtime-Entrepreneurs.github.io/Games.html" class="menubtn">Games</a></li>
+        <li><a href="https://Endtime-Entrepreneurs.github.io/news.html" class="menubtn">News</a></li>
+        <li><a href="https://Endtime-Entrepreneurs.github.io/contact.html" class="menubtn">Contact Us</a></li>
+    </ul>
+</nav>
+<div class="nav-margin"></div>
+
+<div class="container">
+    <h1 class="text-center" id="article_title">An Adventure Begins</h1>
+    <div class="container-fluid">
+        <div class="single-blog">
+            <p class="blog-meta">By Airy & Da Dark Wizard<span>April 8, 2021</span></p>
+
+            <h2><a><!-- put secondary blog title here --></a></h2>
+            <p class="blog-text">
+                <br>
+                Airy:  The earliest I can remember is the void…  There was nothing to ponder but your thoughts--if they exist. Nothing to see, nothing to hear, nothing to do…
+                <br>
+                <br>
+                DaDarkWizard:  Leave it to Airy to make an announcement about nothing!
+                <br>
+                <br>
+                Airy:  Then there was a presence!  Once we connected, there was hope!  Together we would find our way… to someplace!
+            </p>
+        </div>
+    </div>
+    <br>
+</div>
+
+<script type="text/javascript">
+  console.log("Helloe");
+  function loadDoc() {
+    var search = window.location.search;
+    var articles = search.split("?");
+    var selectedArticle = "";
+
+    for(let i = 0; i < articles.length; i++) {
+      if(articles[i].indexOf("article") > -1){
+        var mine = articles[i];
+        var article = mine.substring(8, mine.length);
+        selectedArticle = article;
+      }
+    }
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {parseXML(this);}
+    xhttp.open("GET", "Articles/" + selectedArticle + ".xml");
+    xhttp.send();
+  }
+  //document.onload = loadDoc;
+  //$(document).ready( function(){alert('ok');});​
+  function parseXML(xml) {
+    const xmlDoc = xml.responseXML;
+    //const x = xmlDoc.getElementsByTagName("CD");
+    console.log(xmlDoc.getElementsByTagName("Text"));
+    $("#article_title").text(xmlDoc.GetElementsByTagName("Text"));
+    //let table="<tr><th>Artist</th><th>Title</th></tr>";
+    //for (let i = 0; i <x.length; i++) {
+      //table += "<tr><td>" +
+      //x[i].getElementsByTagName("ARTIST")[0].childNodes[0].nodeValue +
+      //"</td><td>" +
+      //x[i].getElementsByTagName("TITLE")[0].childNodes[0].nodeValue +
+      //"</td></tr>";
+    //}
+    //document.getElementById("demo").innerHTML = table;
+  }
+</script>
+</body>
