@@ -15,7 +15,7 @@
     <meta name="description" content="test 123 abc lets see if this works">
 </head>
 
-<body>
+<body onload="loadDoc()">
 <img src="WebBanner.png" alt="Web banner." style="width:100%;"/>
 <nav>
     <input type="checkbox" id="check">
@@ -36,10 +36,10 @@
     <div class="row">
         <div class="col-md-4">
             <div class="single-blog">
-                <p class="blog-meta">By Everyone <span>December 23, 2020</span></p>
+                <p id="article_authors_1" class="blog-meta">By Everyone <span>December 23, 2020</span></p>
                 <img src="Article1Thumbsmall.png">
-                <h2><a href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article1">Our Very First Update</a></h2>
-                <p class="blog-text">Hello world!  And Merry Christmas! We are a small group of game developers with big ideas.  For the last year we have been researching a new world!</p>
+                <h2><a id="article_title_1" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article1">Our Very First Update</a></h2>
+                <p id="article_text_1" class="blog-text">Hello world!  And Merry Christmas! We are a small group of game developers with big ideas.  For the last year we have been researching a new world!</p>
                 <p><a href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article1" class="read-more-btn">Read More</a></p>
 
             </div>
@@ -71,7 +71,43 @@
 
 <br>
 <br>
+<script type="text/javascript">
+  function loadDoc() {
+    var search = window.location.search;
+    var articles = search.split("?");
+    var selectedArticle = "";
 
+    for(let i = 0; i < articles.length; i++) {
+      if(articles[i].indexOf("article") > -1){
+        var mine = articles[i];
+        var article = mine.substring(8, mine.length);
+        selectedArticle = article;
+      }
+    }
 
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {parseArticleList(this);}
+    xhttp.open("GET", "articlelist.txt");
+    xhttp.send();
+  }
+  function fillArticle(index, articleName){
+    const xhttp = new XMLHttpRequest();
+    xhttp.onload = function() {
+        const xmlDoc = xml.responseXML;
+        $("#article_text_" + index).html(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
+        $("#article_title_" + index).html(xmlDoc.getElementsByTagName("Title")[0].innerHTML);
+        $("#article_authors_" + index).html(xmlDoc.getElementsByTagName("Author")[0].innerHTML);
+        $("#article_authors_" + index).append("<span>" + xmlDoc.getElementsByTagName("Date")[0].innerHTML + "</span>");
+    }
+    xhttp.open("GET", "Articles/" + articleName + ".xml");
+    xhttp.send();
+  }
+  function parseArticleList(text) {
+    const textLines = text.split('\n');
+    for(var i = 0; i < 1; i++){
+        fillArticle(1, text[1]);
+    }
+  }
+</script>
 </body>
 </html>
