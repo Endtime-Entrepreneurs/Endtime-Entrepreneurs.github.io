@@ -44,7 +44,7 @@
             <p class="blog-meta">By Airy & Da Dark Wizard<span>April 8, 2021</span></p>
 
             <h2><a><!-- put secondary blog title here --></a></h2>
-            <p class="blog-text">
+            <p class="blog-text" id="article_text">
                 <br>
                 Airy:  The earliest I can remember is the void…  There was nothing to ponder but your thoughts--if they exist. Nothing to see, nothing to hear, nothing to do…
                 <br>
@@ -85,7 +85,8 @@
     const xmlDoc = xml.responseXML;
     //const x = xmlDoc.getElementsByTagName("CD");
     console.log(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
-    $("#article_title").text(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
+    $("#article_text").text(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
+    $("#article_title").text(xmlDoc.getElementsByTagName("Title")[0].innerHTML);
     //let table="<tr><th>Artist</th><th>Title</th></tr>";
     //for (let i = 0; i <x.length; i++) {
       //table += "<tr><td>" +
