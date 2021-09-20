@@ -7,7 +7,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/19bf467a51.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="index.css">
@@ -40,27 +50,27 @@
                 <img src="Article1Thumbsmall.png">
                 <h2><a id="article_title_1" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article1">Our Very First Update</a></h2>
                 <p id="article_text_1" class="blog-text">Hello world!  And Merry Christmas! We are a small group of game developers with big ideas.  For the last year we have been researching a new world!</p>
-                <p><a href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article1" class="read-more-btn">Read More</a></p>
+                <p><a id="article_link_1" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article1" class="read-more-btn">Read More</a></p>
 
             </div>
         </div>
         <div class="col-md-4">
             <div class="single-blog">
-                <p class="blog-meta">By Airy & Da Dark Wizard<span>April 8, 2021</span></p>
+                <p id="article_authors_2" class="blog-meta">By Airy & Da Dark Wizard<span>April 8, 2021</span></p>
                 <img src="Article2Thumbsmall.png">
-                <h2><a href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article2">An Adventure Begins</a></h2>
-                <p class="blog-text">The earliest I can remember is the void… There was nothing to ponder but your thoughts--if they exist. Nothing to see, nothing to hear, nothing to do…</p>
-                <p><a href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article2" class="read-more-btn">Read More</a></p>
+                <h2><a id="article_title_2" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article2">An Adventure Begins</a></h2>
+                <p id="article_text_2" class="blog-text">The earliest I can remember is the void… There was nothing to ponder but your thoughts--if they exist. Nothing to see, nothing to hear, nothing to do…</p>
+                <p><a id="article_link_2" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article2" class="read-more-btn">Read More</a></p>
 
             </div>
         </div>
         <div class="col-md-4">
             <div class="single-blog">
-                <p class="blog-meta">By Everyone <span>September 19, 2021</span></p>
+                <p id="article_authors_3" class="blog-meta">By Everyone <span>September 19, 2021</span></p>
                 <img src="apple.png">
-                <h2><a href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article3">Thoughts Within the Void</a></h2>
-                <p class="blog-text">Airy:  Over what seemed like months, as if we could send our thoughts through a medium, DaDarkWizard and I communicated with each other.</p>
-                <p><a href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article3" class="read-more-btn">Read More</a></p>
+                <h2><a id="article_title_3" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article3">Thoughts Within the Void</a></h2>
+                <p id="article_text_3" class="blog-text">Airy:  Over what seemed like months, as if we could send our thoughts through a medium, DaDarkWizard and I communicated with each other.</p>
+                <p><a id="article_link_3" href="https://Endtime-Entrepreneurs.github.io/article-parser.html?article=article3" class="read-more-btn">Read More</a></p>
 
             </div>
         </div>
@@ -93,8 +103,9 @@
   function fillArticle(index, articleName){
     const xhttp = new XMLHttpRequest();
     xhttp.onload = function() {
-        const xmlDoc = xml.responseXML;
-        $("#article_text_" + index).html(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
+        const xmlDoc = this.responseXML;
+        var text = xmlDoc.getElementsByTagName("Text")[0];
+        $("#article_text_" + index).html(text.innerHTML.substring(0, Math.min(200, text.innerHTML.indexOf("<br/>", 100))));
         $("#article_title_" + index).html(xmlDoc.getElementsByTagName("Title")[0].innerHTML);
         $("#article_authors_" + index).html(xmlDoc.getElementsByTagName("Author")[0].innerHTML);
         $("#article_authors_" + index).append("<span>" + xmlDoc.getElementsByTagName("Date")[0].innerHTML + "</span>");
@@ -104,8 +115,8 @@
   }
   function parseArticleList(text) {
     const textLines = text.responseText.split('\n');
-    for(var i = 0; i < 1; i++){
-        fillArticle(1, text[1]);
+    for(var i = 0; i < 3; i++){
+        fillArticle(i + 1, textLines[i]);
     }
   }
 </script>
