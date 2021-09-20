@@ -84,8 +84,8 @@
   function parseXML(xml) {
     const xmlDoc = xml.responseXML;
     //const x = xmlDoc.getElementsByTagName("CD");
-    console.log(xmlDoc.getElementsByTagName("Text"));
-    $("#article_title").text(xmlDoc.GetElementsByTagName("Text"));
+    console.log(xmlDoc.getElementsByTagName("Text")[0]);
+    $("#article_title").text(xmlDoc.GetElementsByTagName("Text")[0]);
     //let table="<tr><th>Artist</th><th>Title</th></tr>";
     //for (let i = 0; i <x.length; i++) {
       //table += "<tr><td>" +
