@@ -74,7 +74,6 @@
   function parseXML(xml) {
     const xmlDoc = xml.responseXML;
     
-    console.log(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
     $("#article_text").html(xmlDoc.getElementsByTagName("Text")[0].innerHTML);
     $("#article_title").html(xmlDoc.getElementsByTagName("Title")[0].innerHTML);
     $("#article_authors").html(xmlDoc.getElementsByTagName("Author")[0].innerHTML);
